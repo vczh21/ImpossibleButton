@@ -6,6 +6,7 @@ import random
 class ImpossibleButton:
     def __init__(self, master):
         self.success_rate = 100
+        self.clicks = 0
 
         # GUI setup
         self.master = master
@@ -17,6 +18,8 @@ class ImpossibleButton:
 
     def button_click(self):
         self.success_rate -= 1
+        self.clicks += 1
+
         if random.randint(1, 100) <= self.success_rate:
             self.button.configure(text=f"Success Rate:{self.success_rate}%")
         else:
@@ -26,7 +29,7 @@ class ImpossibleButton:
     def show_result_window(self):
         self.result_window = tk.Toplevel(self.master)
         self.result_window.title("You Lost!")
-        self.result_label = ttk.Label(self.result_window, text=f"You Lost!\nWith {100 - self.success_rate}% of losing")
+        self.result_label = ttk.Label(self.result_window, text=f"You Lost!\nWith {self.clicks} clicks")
         self.result_label.pack(padx=15, pady=15)
         self.restart_button = ttk.Button(self.result_window, text="Restart", command=self.restart)
         self.restart_button.pack(padx=5, pady=5)
@@ -36,6 +39,7 @@ class ImpossibleButton:
 
     def restart(self):
         self.success_rate = 100
+        self.clicks = 0
         self.button.configure(text=f"Success Rate:{self.success_rate}%", state=tk.NORMAL)
         self.result_window.destroy()
 
