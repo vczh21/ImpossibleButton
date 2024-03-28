@@ -32,6 +32,7 @@ class ImpossibleButton:
         self.restart_button.pack(padx=5, pady=5)
         exit_button = ttk.Button(self.result_window, text="Exit", command=self.master.quit)
         exit_button.pack(padx=5, pady=5)
+        self.result_window.protocol("WM_DELETE_WINDOW", self.restart)
 
     def restart(self):
         self.success_rate = 100
